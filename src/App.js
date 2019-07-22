@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import NavBar from "./components/navbar";
+import Customers from "./components/pages/customers";
+import Rentals from "./components/pages/rentals";
+import Movies from "./components/pages/movies";
+import MovieDetails from "./components/MovieDetails";
+import NotFound from "./components/pages/notFound";
+import Login from "./components/pages/login";
+import { Route, Switch, Redirect } from "react-router-dom";
+
+import "./App.css";
+
+class App extends Component {
+  render() {
+    return (
+      <React.Fragment>
+        <NavBar />
+        <main className="container">
+          <Switch>
+            <Route path="/customers" component={Customers} />
+            <Route path="/login" component={Login} />
+            <Route path="/rentals" component={Rentals} />
+            <Route path="/movies/:id" component={MovieDetails} />
+            <Route path="/movies" component={Movies} />
+            <Route path="/notFound" component={NotFound} />
+            <Redirect from="/" to="/movies" exact />
+            <Redirect to="/notFound" />
+          </Switch>
+        </main>
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;
