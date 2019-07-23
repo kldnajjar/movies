@@ -7,6 +7,7 @@ import Movies from "./components/pages/movies";
 import MovieDetails from "./components/MovieDetails";
 import NotFound from "./components/pages/notFound";
 import Login from "./components/pages/login";
+import Register from "./components/pages/register";
 import { Route, Switch, Redirect } from "react-router-dom";
 
 import "./App.css";
@@ -18,9 +19,10 @@ class App extends Component {
         <NavBar />
         <main className="container">
           <Switch>
-            <Route path="/customers" component={Customers} />
+            <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
             <Route path="/rentals" component={Rentals} />
+            <Route path="/customers" component={Customers} />
             <Route path="/movies/:id" component={MovieDetails} />
             <Route path="/movies" component={Movies} />
             <Route path="/notFound" component={NotFound} />
