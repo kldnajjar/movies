@@ -18,7 +18,7 @@ class MovieForm extends Form {
   };
 
   schema = {
-    _id: Joi.string(),
+    _id: Joi.string().allow(""),
     title: Joi.string()
       .required()
       .label("Title"),
