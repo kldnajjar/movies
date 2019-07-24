@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import _ from "lodash";
+import { Link } from "react-router-dom";
 
 import { getMovies } from "../../services/fakeMovieService";
 import { getGenres } from "../../services/fakeGenreService";
@@ -120,6 +121,9 @@ class Movies extends Component {
             />
           </div>
           <div className="col">
+            <Link to="/movies/new" className="btn btn-primary mb-3">
+              New Movie
+            </Link>
             <h4 className="mb-4">Showing {count} movies in the database.</h4>
             <MoviesTable
               movies={items}
