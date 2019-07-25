@@ -9,8 +9,8 @@ import ListGroup from "../common/listGroup";
 import Pagination from "../common/pagination";
 import Searchbox from "../common/searchBox";
 
-import { getMovies, deleteMovie } from "../../services/movies";
-import { getGenres } from "../../services/genres";
+import { getMovies, deleteMovie } from "../../services/moviesService";
+import { getGenres } from "../../services/genresService";
 
 class Movies extends Component {
   state = {
