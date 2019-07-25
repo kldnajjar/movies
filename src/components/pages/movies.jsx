@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import { Link } from "react-router-dom";
-
-import { getMovies } from "../../services/fakeMovieService";
-import { getGenres } from "../../services/fakeGenreService";
+import { toast } from "react-toastify";
 import { paginate } from "../../util/paginate.js";
 
-import MoviesTable from "../moviesTable";
+import MoviesTable from "./moviesTable";
 import ListGroup from "../common/listGroup";
 import Pagination from "../common/pagination";
 import Searchbox from "../common/searchBox";
+
+import { getMovies, deleteMovie } from "../../services/movies";
+import { getGenres } from "../../services/genres";
 
 class Movies extends Component {
   state = {
@@ -22,12 +23,17 @@ class Movies extends Component {
     sort: { path: "title", order: "asc" }
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     console.log("Mount");
-    const data = { _id: 0, name: "All Generes" };
-    const genres = getGenres();
-    genres.unshift(data);
-    this.setState({ movies: getMovies(), genres, selectedGenre: genres[0] });
+    const result = await getGenres();
+    const genres = [{ _id: 0, name: "All Generes" }, ...result];
+    const movies = await getMovies();
+
+    this.setState({
+      movies,
+      genres,
+      selectedGenre: genres[0]
+    });
   }
 
   componentDidUpdate() {
@@ -38,9 +44,20 @@ class Movies extends Component {
     console.log("Will unmount");
   }
 
-  deleteMovie = movie => {
-    const movies = this.state.movies.filter(m => movie._id !== m._id);
-    this.setState({ movies });
+  deleteMovie = async movie => {
+    const originalMovies = this.state.movies;
+    const movies = [...originalMovies.filter(m => movie._id !== m._id)];
+
+    this.setState({ movies, currentPage: 1 });
+
+    try {
+      await deleteMovie(movie._id);
+    } catch (err) {
+      if (err.response && err.response.status === 404)
+        toast.error("This movie already been deleted!");
+
+      this.setState({ originalMovies });
+    }
   };
 
   increment = movie => {
@@ -100,20 +117,8 @@ class Movies extends Component {
     return data;
   };
 
-  search = e => {
-    const value = e.currentTarget.value.toLowerCase();
-    const { genres, selectedGenre, currentPage } = this.state;
-    const allMovies = getMovies();
-
-    const movies = allMovies.filter(
-      movie => movie.title.toLowerCase().indexOf(value) > -1
-    );
-
-    this.setState({ selectedGenre: genres[0], currentPage: 1, movies });
-  };
-
   handleSearch = query => {
-    const { genres, selectedGenre, currentPage } = this.state;
+    const { genres } = this.state;
     this.setState({
       selectedGenre: genres[0],
       currentPage: 1,
