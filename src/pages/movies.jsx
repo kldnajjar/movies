@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import _ from "lodash";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { paginate } from "../../util/paginate.js";
+import { paginate } from "../util/paginate.js";
 
 import MoviesTable from "./moviesTable";
-import ListGroup from "../common/listGroup";
-import Pagination from "../common/pagination";
-import Searchbox from "../common/searchBox";
+import ListGroup from "../components/common/listGroup";
+import Pagination from "../components/common/pagination";
+import Searchbox from "../components/common/searchBox";
 
-import { getMovies, deleteMovie } from "../../services/moviesService";
-import { getGenres } from "../../services/genresService";
+import { getMovies, deleteMovie } from "../services/moviesService";
+import { getGenres } from "../services/genresService";
 
 class Movies extends Component {
   state = {

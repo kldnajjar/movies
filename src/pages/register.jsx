@@ -1,8 +1,9 @@
 import React from "react";
 import Joi from "joi-browser";
-import Form from "../common/form";
-import * as userService from "../../services/usersService";
-import auth from "../../services/authService";
+
+import Form from "../components/common/form";
+import auth from "../services/authService";
+import * as userService from "../services/usersService";
 
 class Register extends Form {
   state = {
