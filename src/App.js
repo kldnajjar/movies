@@ -15,6 +15,7 @@ import auth from "./services/authService";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import ProctecRoute from "./components/common/protectedRoute";
 
 class App extends Component {
   state = {};
@@ -24,10 +25,11 @@ class App extends Component {
     this.setState({ user });
   }
   render() {
+    const { user } = this.state;
     return (
       <React.Fragment>
         <ToastContainer />
-        <NavBar user={this.state.user} />
+        <NavBar user={user} />
         <main className="container">
           <Switch>
             <Route path="/register" component={Register} />
@@ -35,9 +37,11 @@ class App extends Component {
             <Route path="/logout" component={Logout} />
             <Route path="/rentals" component={Rentals} />
             <Route path="/customers" component={Customers} />
-            <Route path="/movies/new" component={MovieForm} />
-            <Route path="/movies/:id" component={MovieForm} />
-            <Route path="/movies" component={Movies} />
+            <ProctecRoute path="/movies/:id" component={MovieForm} />
+            <Route
+              path="/movies"
+              render={props => <Movies {...props} user={user} />}
+            />
             <Route path="/notFound" component={NotFound} />
             <Redirect from="/" to="/movies" exact />
             <Redirect to="/notFound" />

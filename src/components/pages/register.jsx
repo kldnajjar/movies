@@ -33,7 +33,7 @@ class Register extends Form {
       console.log("register submitted");
       const result = await userService.register(this.state.data);
       const token = result.headers["x-auth-token"];
-      auth.loginWithJwt(token);
+      auth.setToken(token);
       window.location = "/";
     } catch (err) {
       if (err.response) {

@@ -1,9 +1,12 @@
+import jwtDecode from "jwt-decode";
+
 import { apiURL } from "../config.json";
 import http from "./httpService";
-import jwtDecode from "jwt-decode";
 
 const apiEndPoint = `${apiURL}/auth`;
 const tokenKey = "token";
+
+http.setToken(getToken());
 
 export async function login(user) {
   const data = {
@@ -11,20 +14,24 @@ export async function login(user) {
     password: user.password
   };
   const { data: token } = await http.post(apiEndPoint, data);
-  loginWithJwt(token);
+  setToken(token);
 }
 
-function loginWithJwt(token) {
+function setToken(token) {
   localStorage.setItem(tokenKey, token);
 }
 
 export function getCurrentUser() {
   try {
-    const token = localStorage.getItem(tokenKey);
+    const token = getToken();
     return jwtDecode(token);
   } catch (err) {
     return null;
   }
+}
+
+export function getToken() {
+  return localStorage.getItem(tokenKey);
 }
 
 export function logout() {
@@ -33,7 +40,8 @@ export function logout() {
 
 export default {
   login,
-  loginWithJwt,
+  setToken,
   logout,
-  getCurrentUser
+  getCurrentUser,
+  getToken
 };
