@@ -9,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
 
 Logger.init();
+console.log("Deployment", process.env);
 ReactDOM.render(
   <BrowserRouter>
     <App />

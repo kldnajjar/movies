@@ -127,6 +127,8 @@ class Movies extends Component {
   };
 
   render() {
+    console.log("Rendered");
+
     const {
       movies: allMovies,
       currentPage,

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { ToastContainer } from "react-toastify";
 import { Route, Switch, Redirect } from "react-router-dom";
 
-import ProctecRoute from "./components/common/protectedRoute";
+import ProtectedRoute from "./components/common/protectedRoute";
 import NavBar from "./components/navbar";
 import auth from "./services/authService";
 
@@ -38,7 +38,7 @@ class App extends Component {
             <Route path="/logout" component={Logout} />
             <Route path="/rentals" component={Rentals} />
             <Route path="/customers" component={Customers} />
-            <ProctecRoute path="/movies/:id" component={MovieForm} />
+            <ProtectedRoute path="/movies/:id" component={MovieForm} />
             <Route
               path="/movies"
               render={props => <Movies {...props} user={user} />}
