@@ -1,7 +1,6 @@
-import { apiURL } from "../config.json";
 import http from "./httpService";
 
-const apiEndPoint = `${apiURL}/movies`;
+const apiEndPoint = `/movies`;
 
 async function getMovies() {
   const { data } = await http.get(apiEndPoint);

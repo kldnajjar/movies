@@ -1,7 +1,6 @@
-import { apiURL } from "../config.json";
 import http from "./httpService";
 
-const apiEndPoint = `${apiURL}/users`;
+const apiEndPoint = `/users`;
 
 export async function register(user) {
   const data = {
